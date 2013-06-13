@@ -1,22 +1,112 @@
 package MooseX::XSAccessor;
 
-use 5.010;
-use constant { false => 0, true => 1 };
+use 5.008;
 use strict;
 use warnings;
-use utf8;
+
+use Moose 2.0600 ();
+use Class::XSAccessor 1.16 ();
 
 BEGIN {
 	$MooseX::XSAccessor::AUTHORITY = 'cpan:TOBYINK';
 	$MooseX::XSAccessor::VERSION   = '0.001';
 }
 
+use Moose::Exporter;
+Moose::Exporter->setup_import_methods;
 
+sub init_meta
+{
+	shift;
+	my %p = @_;
+	Moose::Util::MetaRole::apply_metaroles(
+		for             => $p{for_class},
+		class_metaroles => {
+			attribute => [qw( MooseX::XSAccessor::Meta::Attribute )],
+		},
+	);
+}
 
+BEGIN {
+	package MooseX::XSAccessor::Meta::Attribute;
+	
+	use Moose::Role;
+	
+	sub accessor_is_simple
+	{
+		my $self = shift;
+		return !!0 if $self->has_type_constraint;
+		return !!0 if $self->should_coerce;
+		return !!0 if $self->has_trigger;
+		return !!0 if $self->is_weak_ref;
+		return !!0 if $self->is_lazy;
+		return !!0 if $self->should_auto_deref;
+		!!1;
+	}
+	
+	sub reader_is_simple
+	{
+		my $self = shift;
+		return !!0 if $self->is_lazy;
+		return !!0 if $self->should_auto_deref;
+		!!1;
+	}
+	
+	sub writer_is_simple
+	{
+		my $self = shift;
+		return !!0 if $self->has_type_constraint;
+		return !!0 if $self->should_coerce;
+		return !!0 if $self->has_trigger;
+		return !!0 if $self->is_weak_ref;
+		!!1;
+	}
+	
+	sub predicate_is_simple
+	{
+		!!1;
+	}
+	
+	# Class::XSAccessor doesn't do clearers
+	sub clearer_is_simple
+	{
+		!!0;
+	}
+	
+	my %class_xsaccessor_opt = (
+		accessor   => "accessors",
+		reader     => "getters",
+		writer     => "setters",
+		predicate  => "predicates",
+	);
+	
+	override install_accessors => sub {
+		my $self = shift;
+		my ($inline) = @_;
+		
+		my $class  = $self->associated_class;
+		my %import = (class => $class->name, replace => 1);
+		
+		for my $m (qw/ accessor reader writer predicate /)
+		{
+			my $has_method       = "has_$m";
+			my $method_is_simple = "$m\_is_simple";
+			
+			next unless $self->$has_method;
+			
+			$class->add_method($self->_process_accessors($m => $self->$m, $inline));
+			if ($self->$method_is_simple)
+			{
+				$import{$class_xsaccessor_opt{$m}} = +{ $self->$m => $self->name };
+			}
+		}
+		
+		"Class::XSAccessor"->import(%import);
+		return;
+	};
+};
 
-# Your code goes here
-
-true;
+1;
 
 __END__
 
