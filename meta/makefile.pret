@@ -1,0 +1,8 @@
+# This file provides instructions for packaging.
+
+`MooseX-XSAccessor`
+	perl_version_from m`MooseX::XSAccessor`;
+	version_from      m`MooseX::XSAccessor`;
+	readme_from       m`MooseX::XSAccessor` ;
+	.
+
