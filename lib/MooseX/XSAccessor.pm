@@ -85,25 +85,34 @@ BEGIN {
 		my $self = shift;
 		my ($inline) = @_;
 		
-		my $class  = $self->associated_class;
-		my %import = (class => $class->name, replace => 1);
-		my $ok     = $class->instance_metaclass->is_inlinable;
+		my $class     = $self->associated_class;
+		my $classname = $class->name;
 		
-		for my $m (qw/ accessor reader writer predicate /)
+		for my $m (qw/ accessor reader writer predicate clearer /)
 		{
 			my $has_method       = "has_$m";
 			my $method_is_simple = "$m\_is_simple";
+			my $methodname       = $self->$m;
 			
 			next unless $self->$has_method;
 			
-			$class->add_method($self->_process_accessors($m => $self->$m, $inline));
-			if ($ok and $self->$method_is_simple)
+			# Generate it the old-fashioned way...
+			my ($name, $metamethod) = $self->_process_accessors($m => $methodname, $inline);
+			$class->add_method($name, $metamethod);
+			
+			# Now try to accelerate it!
+			if ($inline and $self->$method_is_simple and exists $class_xsaccessor_opt{$m})
 			{
-				$import{$class_xsaccessor_opt{$m}} = +{ $self->$m => $self->name };
+				"Class::XSAccessor"->import(
+					class                     => $classname,
+					replace                   => 1,
+					$class_xsaccessor_opt{$m} => +{ $methodname => $self->name },
+				);
+				# Naughty!
+				$metamethod->{"body"} = $classname->can($methodname);
 			}
 		}
 		
-		"Class::XSAccessor"->import(%import) if keys(%import) > 2;
 		return;
 	};
 };
