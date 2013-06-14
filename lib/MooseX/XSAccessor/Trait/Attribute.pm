@@ -6,6 +6,7 @@ use warnings;
 
 use Class::XSAccessor 1.16 ();
 use Scalar::Util qw(reftype);
+use B qw(perlstring);
 
 BEGIN {
 	$MooseX::XSAccessor::Trait::Attribute::AUTHORITY = 'cpan:TOBYINK';
@@ -71,6 +72,13 @@ override install_accessors => sub {
 	my $classname = $class->name;
 	my $is_hash   = reftype($class->get_meta_instance->create_instance) eq q(HASH);
 	my $ok        = $is_hash && $class->get_meta_instance->is_inlinable;
+	
+	# Use inlined get method as a heuristic to detect weird shit.
+	if ($ok)
+	{
+		my $inline_get = $self->_inline_instance_get('$X');
+		$ok = !!0 if $inline_get ne sprintf('$X->{%s}', perlstring($self->name));
+	}
 	
 	for my $m (qw/ accessor reader writer predicate clearer /)
 	{
