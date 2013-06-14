@@ -9,7 +9,7 @@ use MooseX::XSAccessor::Trait::Attribute ();
 
 BEGIN {
 	$MooseX::XSAccessor::AUTHORITY = 'cpan:TOBYINK';
-	$MooseX::XSAccessor::VERSION   = '0.001';
+	$MooseX::XSAccessor::VERSION   = '0.000_01';
 }
 
 use Moose::Exporter;

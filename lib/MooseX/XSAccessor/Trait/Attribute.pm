@@ -9,7 +9,7 @@ use Scalar::Util qw(reftype);
 
 BEGIN {
 	$MooseX::XSAccessor::Trait::Attribute::AUTHORITY = 'cpan:TOBYINK';
-	$MooseX::XSAccessor::Trait::Attribute::VERSION   = '0.001';
+	$MooseX::XSAccessor::Trait::Attribute::VERSION   = '0.000_01';
 }
 
 use Moose::Role;

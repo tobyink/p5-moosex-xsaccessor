@@ -1,6 +1,6 @@
 # This file acts as the project's changelog.
 
-`MooseX-XSAccessor 0.001 cpan:TOBYINK`
-	issued  2013-06-13;
-	label   "Initial release".
+`MooseX-XSAccessor 0.000_01 cpan:TOBYINK`
+	issued  2013-06-14;
+	label   "Developer release".
 
