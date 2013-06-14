@@ -178,6 +178,18 @@ trait directly:
       ...,
    );
 
+=item *
+
+If you don't want to add a dependency on MooseX::XSAccessor, but do want to
+use it if it's available, the following code will use it optionally:
+
+   package MyClass;
+   
+   use Moose;
+   BEGIN { eval "use MooseX::XSAccessor" };
+   
+   has foo => (...);
+
 =back
 
 =head1 CAVEATS

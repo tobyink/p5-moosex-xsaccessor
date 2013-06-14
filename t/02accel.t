@@ -28,7 +28,7 @@ use Test::Moose;
 {
 	package Local::Class;
 	use Moose;
-	use MooseX::XSAccessor;
+	BEGIN { eval "use MooseX::XSAccessor" };
 	has thingy => (is => "rw", isa => "Any", predicate => "has_thingy");
 	has number => (is => "rw", isa => "Num", predicate => "has_number");
 	has numero => (is => "ro", isa => "Num", predicate => "has_numero");
