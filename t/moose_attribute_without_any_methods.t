@@ -2,7 +2,7 @@ use lib "t/lib";
 use lib "moose/lib";
 use lib "lib";
 
-#!/usr/bin/perl
+## skip Test::Tabs
 
 use strict;
 use warnings;

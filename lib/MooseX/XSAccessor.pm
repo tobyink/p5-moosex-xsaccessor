@@ -33,6 +33,8 @@ __END__
 
 =pod
 
+=for stopwords Auto-deref
+
 =encoding utf-8
 
 =head1 NAME
@@ -52,7 +54,15 @@ MooseX::XSAccessor - use Class::XSAccessor to speed up Moose accessors
 
 This module accelerates L<Moose>-generated accessor, reader, writer and
 predicate methods using L<Class::XSAccessor>. You get a speed-up for no
-extra effort.
+extra effort. It is automatically applied to every attribute in the
+class.
+
+=begin private
+
+=item init_meta
+
+=end private
+
 
 The use of the following features of Moose attributes prevents a reader
 from being accelerated:
@@ -97,8 +107,8 @@ both of the above lists apply.
 
 =item *
 
-Make attributes read-only when possible. This means that type contraints
-and coecions will only apply to the constructor, not the accessors, enabling
+Make attributes read-only when possible. This means that type constraints
+and coercions will only apply to the constructor, not the accessors, enabling
 the accessors to be accelerated.
 
 =item *

@@ -108,6 +108,8 @@ __END__
 
 =pod
 
+=for stopwords booleans
+
 =encoding utf-8
 
 =head1 NAME

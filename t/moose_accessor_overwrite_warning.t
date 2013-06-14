@@ -2,6 +2,8 @@ use lib "t/lib";
 use lib "moose/lib";
 use lib "lib";
 
+## skip Test::Tabs
+
 use strict;
 use warnings;
 
