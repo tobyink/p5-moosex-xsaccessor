@@ -40,7 +40,7 @@ can_ok($obj, qw/foo _foo/);
 is( exception {$obj->_foo(1)}, undef, "$class->_foo is writer" );
 is($obj->foo(), 1, "$class->foo is reader");
 isnt( exception {$obj->foo(2)}, undef, "$class->foo is not writer" ); # this should fail
-ok(!defined $obj->_foo(), "$class->_foo is not reader");
+ok(!defined $obj->_foo(undef), "$class->_foo is not reader");
 
 $class = make_class('ro', 'writer', 'Test::Class::WriterRO');
 ok($class, "Can define attr with ro + writer");
@@ -51,7 +51,7 @@ can_ok($obj, qw/foo _foo/);
 is( exception {$obj->_foo(1)}, undef, "$class->_foo is writer" );
 is($obj->foo(), 1, "$class->foo is reader");
 isnt( exception {$obj->foo(1)}, undef, "$class->foo is not writer" );
-isnt($obj->_foo(), 1, "$class->_foo is not reader");
+isnt($obj->_foo(undef), 1, "$class->_foo is not reader");
 
 $class = make_class('rw', 'accessor', 'Test::Class::AccessorRW');
 ok($class, "Can define attr with rw + accessor");

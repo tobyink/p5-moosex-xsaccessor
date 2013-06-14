@@ -30,6 +30,7 @@ sub init_meta
 BEGIN {
 	package MooseX::XSAccessor::Meta::Attribute;
 	
+	use Scalar::Util qw(reftype);
 	use Moose::Role;
 	
 	sub accessor_is_simple
@@ -87,6 +88,8 @@ BEGIN {
 		
 		my $class     = $self->associated_class;
 		my $classname = $class->name;
+		my $is_hash   = reftype($class->get_meta_instance->create_instance) eq q(HASH);
+		my $ok        = $is_hash && $class->get_meta_instance->is_inlinable;
 		
 		for my $m (qw/ accessor reader writer predicate clearer /)
 		{
@@ -101,7 +104,7 @@ BEGIN {
 			$class->add_method($name, $metamethod);
 			
 			# Now try to accelerate it!
-			if ($inline and $self->$method_is_simple and exists $class_xsaccessor_opt{$m})
+			if ($ok and $self->$method_is_simple and exists $class_xsaccessor_opt{$m})
 			{
 				"Class::XSAccessor"->import(
 					class                     => $classname,
@@ -134,6 +137,15 @@ MooseX::XSAccessor - use Class::XSAccessor to speed up Moose accessors
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
+
+=head1 CAVEATS
+
+Calling a writer method without a parameter in Moose does not raise an
+exception:
+
+   $person->set_name();    # sets name attribute to "undef"
+
+However, this is a fatal error in Class::XSAccessor.
 
 =head1 BUGS
 
