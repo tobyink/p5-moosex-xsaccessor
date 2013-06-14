@@ -167,9 +167,9 @@ use Test::More;
     has baz => ( is => 'rw' );
 }
 
-TODO: {
-    local $TODO = "do not play nice with traits that change inlining behaviour";
-    
+SKIP: {
+    skip "do not play nice with traits that change inlining behaviour", 3;
+
     my $attr = Bar->meta->find_attribute_by_name('baz');
 
     my $bar = Bar->new(baz => 1);
