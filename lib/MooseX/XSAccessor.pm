@@ -64,6 +64,7 @@ BEGIN {
 	
 	sub predicate_is_simple
 	{
+		my $self = shift;
 		!!1;
 	}
 	
@@ -86,6 +87,7 @@ BEGIN {
 		
 		my $class  = $self->associated_class;
 		my %import = (class => $class->name, replace => 1);
+		my $ok     = $class->instance_metaclass->is_inlinable;
 		
 		for my $m (qw/ accessor reader writer predicate /)
 		{
@@ -95,13 +97,13 @@ BEGIN {
 			next unless $self->$has_method;
 			
 			$class->add_method($self->_process_accessors($m => $self->$m, $inline));
-			if ($self->$method_is_simple)
+			if ($ok and $self->$method_is_simple)
 			{
 				$import{$class_xsaccessor_opt{$m}} = +{ $self->$m => $self->name };
 			}
 		}
 		
-		"Class::XSAccessor"->import(%import);
+		"Class::XSAccessor"->import(%import) if keys(%import) > 2;
 		return;
 	};
 };
