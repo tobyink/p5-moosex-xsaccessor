@@ -6,6 +6,7 @@ use warnings;
 
 use Moose 2.0600 ();
 use MooseX::XSAccessor::Trait::Attribute ();
+use Scalar::Util qw(blessed);
 
 BEGIN {
 	$MooseX::XSAccessor::AUTHORITY = 'cpan:TOBYINK';
@@ -25,6 +26,28 @@ sub init_meta
 			attribute => [qw( MooseX::XSAccessor::Trait::Attribute )],
 		},
 	);
+}
+
+sub is_xs
+{
+	my $sub = $_[0];
+	
+	if (blessed($sub) and $sub->isa("Class::MOP::Method"))
+	{
+		$sub = $sub->body;
+	}
+	elsif (not ref $sub)
+	{
+		no strict "refs";
+		$sub = \&{$sub};
+	}
+	
+	# Best heuristic I could find. B::Deparse does a shoddy job
+	# deparsing XSUBs.
+	#
+	require B::Deparse;
+	my $text = B::Deparse->new->coderef2text($sub);
+	return ($text eq ";");
 }
 
 1;
@@ -100,6 +123,25 @@ Weak references
 
 An C<rw> accessor is effectively a reader and a writer glued together, so
 both of the above lists apply.
+
+=head2 Functions
+
+This module also provides one function, which is not exported so needs to be
+called by its full name.
+
+=over
+
+=item C<< MooseX::XSAccessor::is_xs($sub) >>
+
+Returns a boolean indicating whether a sub is an XSUB. This uses some
+heuristics, and may not always be reliable, but seems to work OK
+differentiating Moose/Moo Perl accessors, from Mouse/Class::XSAccessor
+XS accessors.
+
+C<< $sub >> may be a coderef, L<Class::MOP::Method> object, or a qualified
+sub name as a string (e.g. C<< "MyClass::foo" >>).
+
+=back
 
 =head1 HINTS
 
