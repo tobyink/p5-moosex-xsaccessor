@@ -93,7 +93,8 @@ override install_accessors => sub {
 				$class_xsaccessor_opt{$m} => +{ $methodname => $self->name },
 			);
 			# Naughty!
-			$metamethod->{"body"} = $classname->can($methodname);
+			no strict "refs";
+			$metamethod->{"body"} = \&{"$classname\::$methodname"};
 		}
 	}
 	
