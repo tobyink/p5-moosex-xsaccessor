@@ -10,7 +10,7 @@ use Scalar::Util qw(blessed);
 
 BEGIN {
 	$MooseX::XSAccessor::AUTHORITY = 'cpan:TOBYINK';
-	$MooseX::XSAccessor::VERSION   = '0.000_02';
+	$MooseX::XSAccessor::VERSION   = '0.001';
 }
 
 use Moose::Exporter;

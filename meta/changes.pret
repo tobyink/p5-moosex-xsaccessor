@@ -12,3 +12,8 @@
 		item "Better documentation."^^Documentation;
 		item "Work around some edge cases."^^Bugfix;
 	].
+
+`MooseX-XSAccessor 0.001 cpan:TOBYINK`
+	issued  2013-06-14;
+	label   "Stable release";
+	comment "No functional changes since 0.000_02.".
