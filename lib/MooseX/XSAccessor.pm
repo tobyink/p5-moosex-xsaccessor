@@ -214,10 +214,9 @@ this situation. See L<https://rt.cpan.org/Ticket/Display.html?id=86127>.
 =item *
 
 MooseX::XSAccessor does not play nice with attribute traits that alter
-accessor behaviour, or define additional accessors for attributes. (There
-are one or two such traits in the Moose test suite, but don't seem to be
-any popular ones on CPAN. This is unlikely to cause you any practical
-problems.)
+accessor behaviour, or define additional accessors for attributes.
+(L<MooseX::SetOnce> and L<MooseX::Attribute::Chained> are examples
+thereof.)
 
 =item *
 
