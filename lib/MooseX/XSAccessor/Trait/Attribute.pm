@@ -7,6 +7,11 @@ use warnings;
 use Class::XSAccessor 1.16 ();
 use Scalar::Util qw(reftype);
 
+BEGIN {
+	$MooseX::XSAccessor::Trait::Attribute::AUTHORITY = 'cpan:TOBYINK';
+	$MooseX::XSAccessor::Trait::Attribute::VERSION   = '0.001';
+}
+
 use Moose::Role;
 
 sub accessor_is_simple
