@@ -113,6 +113,8 @@ BEGIN {
 			}
 		}
 		
+		$self->install_delegation if $self->has_handles;
+		
 		return;
 	};
 };
