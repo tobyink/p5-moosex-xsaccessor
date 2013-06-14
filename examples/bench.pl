@@ -6,14 +6,14 @@ use Benchmark qw(cmpthese);
 	package Fast;
 	use Moose;
 	use MooseX::XSAccessor;
-	has attr => (is => "ro");
+	has attr => (is => "ro", isa => "Any");
 	__PACKAGE__->meta->make_immutable;
 }
 
 {
 	package Slow;
 	use Moose;
-	has attr => (is => "ro");
+	has attr => (is => "ro", isa => "Any");
 	__PACKAGE__->meta->make_immutable;
 }
 
@@ -24,6 +24,6 @@ cmpthese(-1, {
 });
 
 __END__
-       Rate Slow Fast
-Slow 4654/s   -- -53%
-Fast 9955/s 114%   --
+        Rate Slow Fast
+Slow  4403/s   -- -57%
+Fast 10142/s 130%   --
