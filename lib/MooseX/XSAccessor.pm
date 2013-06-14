@@ -56,7 +56,7 @@ __END__
 
 =pod
 
-=for stopwords Auto-deref
+=for stopwords Auto-deref Mouse/Class::XSAccessor
 
 =encoding utf-8
 
