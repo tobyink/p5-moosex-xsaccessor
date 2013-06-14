@@ -221,8 +221,9 @@ problems.)
 
 =item *
 
-MooseX::XSAccessor only works on blessed hashes; not e.g. L<MooseX::ArrayRef>
-or L<MooseX::InsideOut>.
+MooseX::XSAccessor only works on blessed hash storage; not e.g.
+L<MooseX::ArrayRef> or L<MooseX::InsideOut>. MooseX::XSAccessor is
+usually able to detect such situations and silently switch itself off.
 
 =back
 
