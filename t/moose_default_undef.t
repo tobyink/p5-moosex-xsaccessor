@@ -5,7 +5,7 @@ use lib "lib";
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More;
+use Test::More skip_all => "RT#86127";
 use Test::Moose;
 
 {

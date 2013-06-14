@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use Moose 2.0600 ();
-use Class::XSAccessor 1.16 ();
+use MooseX::XSAccessor::Trait::Attribute ();
 
 BEGIN {
 	$MooseX::XSAccessor::AUTHORITY = 'cpan:TOBYINK';
@@ -13,7 +13,7 @@ BEGIN {
 }
 
 use Moose::Exporter;
-Moose::Exporter->setup_import_methods;
+"Moose::Exporter"->setup_import_methods;
 
 sub init_meta
 {
@@ -22,105 +22,10 @@ sub init_meta
 	Moose::Util::MetaRole::apply_metaroles(
 		for             => $p{for_class},
 		class_metaroles => {
-			attribute => [qw( MooseX::XSAccessor::Meta::Attribute )],
+			attribute => [qw( MooseX::XSAccessor::Trait::Attribute )],
 		},
 	);
 }
-
-BEGIN {
-	package MooseX::XSAccessor::Meta::Attribute;
-	
-	use Scalar::Util qw(reftype);
-	use Moose::Role;
-	
-	sub accessor_is_simple
-	{
-		my $self = shift;
-		return !!0 if $self->has_type_constraint;
-		return !!0 if $self->should_coerce;
-		return !!0 if $self->has_trigger;
-		return !!0 if $self->is_weak_ref;
-		return !!0 if $self->is_lazy;
-		return !!0 if $self->should_auto_deref;
-		!!1;
-	}
-	
-	sub reader_is_simple
-	{
-		my $self = shift;
-		return !!0 if $self->is_lazy;
-		return !!0 if $self->should_auto_deref;
-		!!1;
-	}
-	
-	sub writer_is_simple
-	{
-		my $self = shift;
-		return !!0 if $self->has_type_constraint;
-		return !!0 if $self->should_coerce;
-		return !!0 if $self->has_trigger;
-		return !!0 if $self->is_weak_ref;
-		!!1;
-	}
-	
-	sub predicate_is_simple
-	{
-		my $self = shift;
-		!!1;
-	}
-	
-	# Class::XSAccessor doesn't do clearers
-	sub clearer_is_simple
-	{
-		!!0;
-	}
-	
-	my %class_xsaccessor_opt = (
-		accessor   => "accessors",
-		reader     => "getters",
-		writer     => "setters",
-		predicate  => "predicates",
-	);
-	
-	override install_accessors => sub {
-		my $self = shift;
-		my ($inline) = @_;
-		
-		my $class     = $self->associated_class;
-		my $classname = $class->name;
-		my $is_hash   = reftype($class->get_meta_instance->create_instance) eq q(HASH);
-		my $ok        = $is_hash && $class->get_meta_instance->is_inlinable;
-		
-		for my $m (qw/ accessor reader writer predicate clearer /)
-		{
-			my $has_method       = "has_$m";
-			my $method_is_simple = "$m\_is_simple";
-			my $methodname       = $self->$m;
-			
-			next unless $self->$has_method;
-			
-			# Generate it the old-fashioned way...
-			my ($name, $metamethod) = $self->_process_accessors($m => $methodname, $inline);
-			$class->add_method($name, $metamethod);
-			
-			# Now try to accelerate it!
-			if ($ok and $self->$method_is_simple and exists $class_xsaccessor_opt{$m})
-			{
-				"Class::XSAccessor"->import(
-					class                     => $classname,
-					replace                   => 1,
-					$class_xsaccessor_opt{$m} => +{ $methodname => $self->name },
-				);
-				# Naughty!
-				$metamethod->{"body"} = $classname->can($methodname);
-			}
-		}
-		
-		$self->install_delegation if $self->has_handles;
-		
-		return;
-	};
-};
 
 1;
 
@@ -136,9 +41,98 @@ MooseX::XSAccessor - use Class::XSAccessor to speed up Moose accessors
 
 =head1 SYNOPSIS
 
+   package MyClass;
+   
+   use Moose;
+   use MooseX::XSAccessor;
+   
+   has foo => (...);
+
 =head1 DESCRIPTION
 
+This module accelerates L<Moose>-generated accessor, reader, writer and
+predicate methods using L<Class::XSAccessor>. You get a speed-up for no
+extra effort.
+
+The use of the following features of Moose attributes prevents a reader
+from being accelerated:
+
+=over
+
+=item *
+
+Lazy builder or lazy default.
+
+=item *
+
+Auto-deref. (Does anybody use this anyway??)
+
+=back
+
+The use of the following features prevents a writer from being
+accelerated:
+
+=over
+
+=item *
+
+Type constraints (except C<Any>; C<Any> is effectively a no-op).
+
+=item *
+
+Triggers
+
+=item *
+
+Weak references
+
+=back
+
+An C<rw> accessor is effectively a reader and a writer glued together, so
+both of the above lists apply.
+
+=head1 HINTS
+
+=over
+
+=item *
+
+Make attributes read-only when possible. This means that type contraints
+and coecions will only apply to the constructor, not the accessors, enabling
+the accessors to be accelerated.
+
+=item *
+
+If you do need a read-write attribute, consider making the main accessor
+read-only, and having a separate writer method. (Like
+L<MooseX::SemiAffordanceAccessor>.)
+
+=item *
+
+Make defaults eager instead of lazy when possible, allowing your readers
+to be accelerated.
+
+=item *
+
+If you need to accelerate just a specific attribute, apply the attribute
+trait directly:
+
+   package MyClass;
+   
+   use Moose;
+   
+   has foo => (
+      traits => ["MooseX::XSAccessor::Trait::Attribute"],
+      ...,
+   );
+
+=back
+
 =head1 CAVEATS
+
+=over
+
+=item *
 
 Calling a writer method without a parameter in Moose does not raise an
 exception:
@@ -147,12 +141,34 @@ exception:
 
 However, this is a fatal error in Class::XSAccessor.
 
+=item *
+
+Class::XSAccessor predicate methods return false when the attribute tested
+exists but is not defined. Standard Moose predicate methods return true in
+this situation. See L<https://rt.cpan.org/Ticket/Display.html?id=86127>.
+
+=item *
+
+MooseX::XSAccessor does not play nice with attribute traits that alter
+accessor behaviour, or define additional accessors for attributes.
+
+=item *
+
+MooseX::XSAccessor only works on blessed hashes; not e.g. L<MooseX::ArrayRef>
+or L<MooseX::InsideOut>.
+
+=back
+
 =head1 BUGS
 
 Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=MooseX-XSAccessor>.
 
 =head1 SEE ALSO
+
+L<MooseX::XSAccessor::Trait::Attribute>.
+
+L<Moose>, L<Moo>, L<Class::XSAccessor>.
 
 =head1 AUTHOR
 
@@ -164,7 +180,6 @@ This software is copyright (c) 2013 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
 
 =head1 DISCLAIMER OF WARRANTIES
 
