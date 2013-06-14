@@ -13,6 +13,14 @@ BEGIN {
 	$MooseX::XSAccessor::Trait::Attribute::VERSION   = '0.000_01';
 }
 
+# Map Moose terminology to Class::XSAccessor options.
+my %class_xsaccessor_opt = (
+	accessor   => "accessors",
+	reader     => "getters",
+	writer     => "setters",
+	predicate  => "predicates",
+);
+
 use Moose::Role;
 
 sub accessor_is_simple
@@ -56,13 +64,6 @@ sub clearer_is_simple
 {
 	!!0;
 }
-
-my %class_xsaccessor_opt = (
-	accessor   => "accessors",
-	reader     => "getters",
-	writer     => "setters",
-	predicate  => "predicates",
-);
 
 override install_accessors => sub {
 	my $self = shift;
