@@ -4,3 +4,11 @@
 	issued  2013-06-14;
 	label   "Developer release".
 
+`MooseX-XSAccessor 0.000_02 cpan:TOBYINK`
+	issued  2013-06-14;
+	changeset [
+		item "MooseX::XSAccessor::is_xs function."^^Addition;
+		item "Better test cases."^^Packaging;
+		item "Better documentation."^^Documentation;
+		item "Work around some edge cases."^^Bugfix;
+	].
