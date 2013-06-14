@@ -24,7 +24,12 @@ use strict;
 use warnings;
 use Test::More;
 
-use_ok('MooseX::XSAccessor');
+ok eval q{
+	package Foo;
+	use Moose;
+	use MooseX::XSAccessor;
+	1;
+};
 
 done_testing;
 
