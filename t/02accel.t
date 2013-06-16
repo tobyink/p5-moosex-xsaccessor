@@ -36,8 +36,13 @@ use Test::Moose;
 	has trig   => (reader => "get_trig", writer => "set_trig", trigger => sub { 1 });
 }
 
-my @expected_xsub = qw/ thingy has_thingy has_number numero has_numero semi has_semi get_trig /;
+my @expected_xsub = qw/ thingy numero semi get_trig /;
 my @expected_pp   = qw/ new number set_semi set_trig /;
+my @maybe_xsub    = qw/ has_thingy has_number has_numero has_semi /;
+
+push @{
+	(Class::XSAccessor->VERSION > 1.16) ? \@expected_xsub : \@expected_pp
+}, @maybe_xsub;
 
 with_immutable {
 	my $im = "Local::Class"->meta->is_immutable ? "immutable" : "mutable";

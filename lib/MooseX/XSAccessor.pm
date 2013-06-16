@@ -207,12 +207,6 @@ However, this is a fatal error in Class::XSAccessor.
 
 =item *
 
-Class::XSAccessor predicate methods return false when the attribute tested
-exists but is not defined. Standard Moose predicate methods return true in
-this situation. See L<https://rt.cpan.org/Ticket/Display.html?id=86127>.
-
-=item *
-
 MooseX::XSAccessor does not play nice with attribute traits that alter
 accessor behaviour, or define additional accessors for attributes.
 (L<MooseX::SetOnce> and L<MooseX::Attribute::Chained> are examples

@@ -4,7 +4,7 @@ use 5.008;
 use strict;
 use warnings;
 
-use Class::XSAccessor 1.16 ();
+use Class::XSAccessor 1.09 ();
 use Scalar::Util qw(reftype);
 use B qw(perlstring);
 
@@ -18,8 +18,10 @@ my %cxsa_opt = (
 	accessor   => "accessors",
 	reader     => "getters",
 	writer     => "setters",
-	predicate  => "predicates",
 );
+
+$cxsa_opt{predicate} = "exists_predicates"
+	if Class::XSAccessor->VERSION > 1.16;
 
 use Moose::Role;
 
