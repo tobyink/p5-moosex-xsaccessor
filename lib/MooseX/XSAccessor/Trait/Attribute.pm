@@ -14,7 +14,7 @@ BEGIN {
 }
 
 # Map Moose terminology to Class::XSAccessor options.
-my %class_xsaccessor_opt = (
+my %cxsa_opt = (
 	accessor   => "accessors",
 	reader     => "getters",
 	writer     => "setters",
@@ -83,27 +83,25 @@ override install_accessors => sub {
 	
 	for my $m (qw/ accessor reader writer predicate clearer /)
 	{
-		my $has_method       = "has_$m";
-		my $method_is_simple = "$m\_is_simple";
-		my $methodname       = $self->$m;
-		
+		my $has_method = "has_$m";
 		next unless $self->$has_method;
-		
+				
 		# Generate it the old-fashioned way...
-		my ($name, $metamethod) = $self->_process_accessors($m => $methodname, $inline);
+		my ($name, $metamethod) = $self->_process_accessors($m => $self->$m, $inline);
 		$class->add_method($name, $metamethod);
 		
 		# Now try to accelerate it!
-		if ($ok and $self->$method_is_simple and exists $class_xsaccessor_opt{$m})
+		my $method_is_simple = "$m\_is_simple";
+		if ($ok and $self->$method_is_simple and exists $cxsa_opt{$m})
 		{
 			"Class::XSAccessor"->import(
-				class                     => $classname,
-				replace                   => 1,
-				$class_xsaccessor_opt{$m} => +{ $methodname => $self->name },
+				class          => $classname,
+				replace        => 1,
+				$cxsa_opt{$m}  => +{ $name => $self->name },
 			);
 			# Naughty!
 			no strict "refs";
-			$metamethod->{"body"} = \&{"$classname\::$methodname"};
+			$metamethod->{"body"} = \&{"$classname\::$name"};
 		}
 	}
 	
