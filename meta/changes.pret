@@ -17,3 +17,16 @@
 	issued  2013-06-14;
 	label   "Stable release";
 	comment "No functional changes since 0.000_02.".
+
+`MooseX-XSAccessor 0.002 cpan:TOBYINK`
+	issued  2013-06-16;
+	changeset [
+		item "Refactor overridden install_accessors into an 'after' method modifier, with the hope that this makes MooseX::XSAccessor play nicer with other MooseX modules."^^Change;
+		item [
+			a dcs:Change;
+			label "Don't use Class::XSAccessor 1.16 and below to generate predicate methods, because their behaviour differs observably from Moose. If you want XS predicates, you'll need Class::XSAccessor 1.17 (which is not on CPAN yet).";
+			seealso RT#86127;
+		];
+		item "Support slightly older versions of Class::XSAccessor (back to 1.09)."^^Packaging;
+	].
+
