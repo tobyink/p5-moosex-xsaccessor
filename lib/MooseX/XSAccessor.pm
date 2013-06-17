@@ -140,6 +140,24 @@ sub name as a string (e.g. C<< "MyClass::foo" >>).
 
 =back
 
+=head2 Chained accessors and writers
+
+L<MooseX::XSAccessor> can detect chained accessors and writers created
+using L<MooseX::Attribute::Chained>, and can accelerate those too.
+
+   package Local::Class;
+   use Moose;
+   use MooseX::XSAccessor;
+   use MooseX::Attribute::Chained;
+   
+   has foo => (traits => ["Chained"], is => "rw");
+   has bar => (traits => ["Chained"], is => "ro", writer => "_set_bar");
+   has baz => (                       is => "rw");  # not chained
+   
+   my $obj = "Local::Class"->new;
+   $obj->foo(1)->_set_bar(2);
+   print $obj->dump;
+
 =head1 HINTS
 
 =over
@@ -206,8 +224,8 @@ However, this is a fatal error in Class::XSAccessor.
 
 MooseX::XSAccessor does not play nice with attribute traits that alter
 accessor behaviour, or define additional accessors for attributes.
-(L<MooseX::SetOnce> and L<MooseX::Attribute::Chained> are examples
-thereof.)
+L<MooseX::SetOnce> is an example thereof. L<MooseX::Attribute::Chained>
+is handled as a special exception.
 
 =item *
 
