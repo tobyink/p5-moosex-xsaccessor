@@ -1,0 +1,112 @@
+f`CONTRIBUTING`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`CREDITS`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`Changes`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`LICENSE`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`META.ttl`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`Makefile.PL`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`README`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`examples/bench.pl`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`meta/changes.pret`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`meta/doap.pret`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`meta/makefile.pret`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`meta/people.pret`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`meta/rights.pret`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`MANIFEST.SKIP`
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:INGY.
+
+f`t/lib/MyMoose.pm`
+	comment "Shim for loading Moose and MooseX::XSAccessor simultaneously.";
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+f`t/lib/MyMoose/Role.pm`
+	comment "Shim for loading Moose::Role and MooseX::XSAccessor simultaneously.";
+	dc:license <http://dev.perl.org/licenses/>;
+	dc:rightsHolder cpan:TOBYINK.
+
+<#infinity>
+	a foaf:Organization;
+	foaf:name "Infinity Interactive, Inc".
+
+f`t/moose_accessor_context.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_accessor_inlining.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_accessor_override_method.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_accessor_overwrite_warning.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attr_dereference_test.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_accessor_generation.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_custom_metaclass.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_delegation.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_does.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_inherited_slot_specs.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_lazy_initializer.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_names.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_reader_generation.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_required.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_traits_n_meta.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_traits_parameterized.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_traits_registered.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_traits.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_triggers.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_type_unions.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_without_any_methods.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_attribute_writer_generation.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_bad_coerce.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_chained_coercion.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_clone_weak.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_default_class_role_types.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_default_undef.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_delegation_and_modifiers.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_delegation_arg_aliasing.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_delegation_target_not_loaded.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_illegal_options_for_inheritance.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_inherit_lazy_build.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_lazy_no_default.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_method_generation_rules.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_misc_attribute_coerce_lazy.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_misc_attribute_tests.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_more_attr_delegation.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_no_init_arg.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_non_alpha_attr_names.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_no_slot_access.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_numeric_defaults.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
+f`t/moose_trigger_and_coerce.t` dc:license <http://dev.perl.org/licenses/>; dc:rightsHolder <#infinity> .
