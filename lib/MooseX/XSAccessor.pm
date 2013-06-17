@@ -86,7 +86,6 @@ class.
 
 =end private
 
-
 The use of the following features of Moose attributes prevents a reader
 from being accelerated:
 
@@ -123,6 +122,11 @@ Weak references
 
 An C<rw> accessor is effectively a reader and a writer glued together, so
 both of the above lists apply.
+
+Predicates can always be accelerated, provided you're using Class::XSAccessor
+1.17 or above.
+
+Clearers can not be accelerated (as of current versions of Class::XSAccessor).
 
 =head2 Functions
 
