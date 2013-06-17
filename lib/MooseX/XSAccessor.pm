@@ -42,12 +42,8 @@ sub is_xs
 		$sub = \&{$sub};
 	}
 	
-	# Best heuristic I could find. B::Deparse does a shoddy job
-	# deparsing XSUBs.
-	#
-	require B::Deparse;
-	my $text = B::Deparse->new->coderef2text($sub);
-	return ($text eq ";");
+	require B;
+	!! B::svref_2object($sub)->XSUB;
 }
 
 1;
@@ -137,10 +133,7 @@ called by its full name.
 
 =item C<< MooseX::XSAccessor::is_xs($sub) >>
 
-Returns a boolean indicating whether a sub is an XSUB. This uses some
-heuristics, and may not always be reliable, but seems to work OK
-differentiating Moose/Moo Perl accessors, from Mouse/Class::XSAccessor
-XS accessors.
+Returns a boolean indicating whether a sub is an XSUB.
 
 C<< $sub >> may be a coderef, L<Class::MOP::Method> object, or a qualified
 sub name as a string (e.g. C<< "MyClass::foo" >>).
