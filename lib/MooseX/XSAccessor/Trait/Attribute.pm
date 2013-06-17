@@ -10,7 +10,7 @@ use B qw(perlstring);
 
 BEGIN {
 	$MooseX::XSAccessor::Trait::Attribute::AUTHORITY = 'cpan:TOBYINK';
-	$MooseX::XSAccessor::Trait::Attribute::VERSION   = '0.002';
+	$MooseX::XSAccessor::Trait::Attribute::VERSION   = '0.003';
 }
 
 # Map Moose terminology to Class::XSAccessor options.

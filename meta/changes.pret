@@ -30,3 +30,10 @@
 		item "Support slightly older versions of Class::XSAccessor (back to 1.09)."^^Packaging;
 	].
 
+`MooseX-XSAccessor 0.003 cpan:TOBYINK`
+	issued  2013-06-17;
+	changeset [
+		item "Document the circumstances under which predicates and clearers can be acceleated (respectively: if Class::XSAccessor is new enough, and never)."^^Documentation;
+		item "Since 0.002 we shouldn't need to skip test `t/moose_default_undef.t` anymore."^^Packaging;
+	].
+
