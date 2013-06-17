@@ -5,7 +5,7 @@ use lib "lib";
 ## skip Test::Tabs
 use strict;
 use warnings;
-use Test::More skip_all => "RT#86127";
+use Test::More;
 use Test::Moose;
 
 {
