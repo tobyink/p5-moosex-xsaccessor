@@ -6,3 +6,8 @@ cpan:TOBYINK
 	:name  "Toby Inkster";
 	:mbox  <mailto:tobyink@cpan.org>.
 
+cpan:FLORA
+	:name  "Florian Ragwitz".
+
+cpan:ILMARI
+	:name  "Dagfinn Ilmari Mannsåker".
