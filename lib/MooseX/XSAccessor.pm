@@ -225,7 +225,7 @@ However, this is a fatal error in Class::XSAccessor.
 MooseX::XSAccessor does not play nice with attribute traits that alter
 accessor behaviour, or define additional accessors for attributes.
 L<MooseX::SetOnce> is an example thereof. L<MooseX::Attribute::Chained>
-is handled as a special exception.
+is handled as a special case.
 
 =item *
 
