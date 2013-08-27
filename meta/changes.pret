@@ -51,3 +51,12 @@
 			dcs:blame cpan:FLORA;
 		];
 	].
+
+`MooseX-XSAccessor 0.005 cpan:TOBYINK`
+	issued  2013-08-27;
+	changeset [
+		item [
+			a dcs:Addition;
+			label "Integration with MooseX::LvalueAttribute.";
+		];
+	].
