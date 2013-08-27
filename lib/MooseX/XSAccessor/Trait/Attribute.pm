@@ -85,6 +85,9 @@ after install_accessors => sub {
 	# Detect use of MooseX::Attribute::Chained
 	my $is_chained = $self->does('MooseX::Traits::Attribute::Chained');
 	
+	# Detect use of MooseX::LvalueAttribute
+	my $is_lvalue = $self->does('MooseX::LvalueAttribute::Trait::Attribute');
+	
 	for my $type (qw/ accessor reader writer predicate clearer /)
 	{
 		# Only accelerate methods if CXSA can deal with them
@@ -100,12 +103,26 @@ after install_accessors => sub {
 		my $metamethod = $class->get_method($methodname);
 		
 		# Perform the actual acceleration
-		"Class::XSAccessor"->import(
-			class             => $classname,
-			replace           => 1,
-			chained           => $is_chained,
-			$cxsa_opt{$type}  => +{ $methodname => $slot },
-		);
+		if ($type eq 'accessor' and $is_lvalue)
+		{
+			next if $is_chained;
+			next if !$MooseX::XSAccessor::LVALUE;
+			
+			"Class::XSAccessor"->import(
+				class             => $classname,
+				replace           => 1,
+				lvalue_accessors  => +{ $methodname => $slot },
+			);
+		}
+		else
+		{
+			"Class::XSAccessor"->import(
+				class             => $classname,
+				replace           => 1,
+				chained           => $is_chained,
+				$cxsa_opt{$type}  => +{ $methodname => $slot },
+			);
+		}
 		
 		# Naughty stuff!!!
 		# We've overwritten a Moose-generated accessor, so now we need to

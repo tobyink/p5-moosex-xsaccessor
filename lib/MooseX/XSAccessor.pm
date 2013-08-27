@@ -13,6 +13,8 @@ BEGIN {
 	$MooseX::XSAccessor::VERSION   = '0.004';
 }
 
+our $LVALUE;
+
 use Moose::Exporter;
 "Moose::Exporter"->setup_import_methods;
 
@@ -157,6 +159,24 @@ using L<MooseX::Attribute::Chained>, and can accelerate those too.
    my $obj = "Local::Class"->new;
    $obj->foo(1)->_set_bar(2);
    print $obj->dump;
+
+=head2 Lvalue accessors
+
+L<MooseX::XSAccessor> will detect lvalue accessors created with
+L<MooseX::LvalueAttribute> and, by default, skip accelerating them.
+
+However, by setting C<< $MooseX::XSAccessor::LVALUE >> to true
+(preferably using the C<local> Perl keyword), you can force it to
+accelerate those too. This introduces a visible change in behaviour
+though. L<MooseX::LvalueAttribute> accessors normally allow two
+patterns for setting the value:
+
+   $obj->foo = 42;   # as an lvalue
+   $obj->foo(42);    # as a method call
+
+However, once accelerated, they may I<only> be set as an lvalue.
+For this reason, setting C<< $MooseX::XSAccessor::LVALUE >> to true is
+considered an experimental feature.
 
 =head1 HINTS
 
