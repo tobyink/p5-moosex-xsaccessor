@@ -14,7 +14,7 @@ f`LICENSE`
 	dc:license <http://dev.perl.org/licenses/>;
 	dc:rightsHolder cpan:TOBYINK.
 
-f`META.ttl`
+f`doap.ttl`
 	dc:license <http://dev.perl.org/licenses/>;
 	dc:rightsHolder cpan:TOBYINK.
 
