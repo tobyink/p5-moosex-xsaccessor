@@ -67,3 +67,9 @@
 		item "Avoid triggering silly deprecation warnings from MooseX::Attribute::Chained."^^Tests;
 		item "Pull latest attribute tests from Moose; the old versions of these test cases broke with Moose 2.11xx."^^Tests;
 	].
+
+`MooseX-XSAccessor 0.007 cpan:TOBYINK`
+	issued  2013-10-30;
+	changeset [
+		item "Skip the new version of moose_bad_coerce.t if Moose version is too old."^^Tests;
+	].
