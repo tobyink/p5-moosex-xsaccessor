@@ -35,9 +35,11 @@ use Test::Requires { "MooseX::Attribute::Chained" => "0" };
 	use MooseX::XSAccessor;
 	use MooseX::Attribute::Chained;
 	
-	has foo => (traits => ["Chained"], is => "rw");
-	has bar => (traits => ["Chained"], is => "ro", writer => "_set_bar");
-	has baz => (                       is => "rw");
+	my $Chained = ['MooseX::Traits::Attribute::Chained'];
+	
+	has foo => (is => "rw", traits => $Chained);
+	has bar => (is => "ro", traits => $Chained, writer => "_set_bar");
+	has baz => (is => "rw");
 	
 	sub quux { 42 };
 }
