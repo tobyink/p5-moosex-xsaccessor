@@ -60,3 +60,10 @@
 			label "Integration with MooseX::LvalueAttribute.";
 		];
 	].
+
+`MooseX-XSAccessor 0.006 cpan:TOBYINK`
+	issued  2013-10-30;
+	changeset [
+		item "Avoid triggering silly deprecation warnings from MooseX::Attribute::Chained."^^Tests;
+		item "Pull latest attribute tests from Moose; the old versions of these test cases broke with Moose 2.11xx."^^Tests;
+	].
