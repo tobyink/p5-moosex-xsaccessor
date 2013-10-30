@@ -10,6 +10,7 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
+use Test::Requires { Moose => '2.1102' };  # error message changed
 
 {
     {
