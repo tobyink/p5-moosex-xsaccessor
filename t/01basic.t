@@ -23,8 +23,6 @@ use strict;
 use warnings;
 use Test::More;
 
-die;
-
 ok eval q{
 	package Foo;
 	use Moose;
