@@ -12,5 +12,4 @@ notifications:
   irc:
     channels:
       - "irc.perl.org#moops"
-      - "irc.perl.org#moose"
     on_success: change
