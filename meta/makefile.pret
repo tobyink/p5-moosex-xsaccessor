@@ -3,6 +3,7 @@
 @prefix : <http://ontologi.es/doap-deps#> .
 
 `MooseX-XSAccessor`
+	:runtime-requirement    [ :on "perl 5.008"^^:CpanId ];
 	:runtime-requirement    [ :on "Class::XSAccessor 1.09"^^:CpanId ];
 	:runtime-requirement    [ :on "Moose 2.0600"^^:CpanId ];
 	:runtime-suggestion     [ :on "MooseX::Attribute::Chained"^^:CpanId ];
