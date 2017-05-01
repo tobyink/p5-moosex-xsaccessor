@@ -26,7 +26,7 @@ use Test::Requires {
             predicate => 'has_attr',
         )
         }
-        qr/\QYou are overwriting an accessor (has_attr) for the has_attr attribute with a new accessor method for the attr attribute/,
+        qr/\QYou are overwriting/,
         'overwriting an accessor for another attribute causes a warning';
 }
 
