@@ -73,3 +73,9 @@
 	changeset [
 		item "Skip the new version of moose_bad_coerce.t if Moose version is too old."^^Tests;
 	].
+
+`MooseX-XSAccessor 0.008 cpan:TOBYINK`
+	issued  2017-05-01;
+	changeset [
+		item "Update tests for more recent Moose versions."^^Tests;
+	].
