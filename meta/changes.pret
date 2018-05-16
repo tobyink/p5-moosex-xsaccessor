@@ -79,3 +79,14 @@
 	changeset [
 		item "Update tests for more recent Moose versions."^^Tests;
 	].
+
+`MooseX-XSAccessor 0.009 cpan:TOBYINK`
+	issued  2018-05-16;
+	changeset [
+		item [
+			a dcs:Tests;
+			label "Remove a test which fails on Perl below 5.20.";
+			comment "It's a hard to track down syntax error and doesn't impact the module's functionality. If anyone knows how to fix it, I'll add it back.";
+			dcs:fixes RT#124835;
+		];
+	].
