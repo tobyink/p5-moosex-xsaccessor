@@ -140,6 +140,10 @@ Returns a boolean indicating whether a sub is an XSUB.
 C<< $sub >> may be a coderef, L<Class::MOP::Method> object, or a qualified
 sub name as a string (e.g. C<< "MyClass::foo" >>).
 
+This function doesn't just work with accessors, but should be able to detect
+the difference between Perl and XS subs in general. (It may not be 100%
+reliable though.)
+
 =back
 
 =head2 Chained accessors and writers
