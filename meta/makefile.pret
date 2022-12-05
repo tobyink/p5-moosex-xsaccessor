@@ -15,5 +15,6 @@
 	:test-requirement       [ :on "Test::Requires"^^:CpanId ];
 	:test-recommendation    [ :on "MooseX::Attribute::Chained"^^:CpanId ];
 	:test-recommendation    [ :on "MooseX::LvalueAttribute"^^:CpanId ];
+	:test-recommendation    [ :on "MooseX::FunkyAttributes"^^:CpanId ];
 	.
 
