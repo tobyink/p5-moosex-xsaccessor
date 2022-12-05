@@ -90,3 +90,20 @@
 			dcs:fixes RT#124835;
 		];
 	].
+
+`MooseX-XSAccessor 0.010 cpan:TOBYINK`
+	issued  2022-12-05;
+	changeset [
+		item [
+			a dcs:Change;
+			label "Support using MooseX::XSAccessor in roles.";
+		];
+		item [
+			a dcs:Tests;
+			label "Include tests for the is_xs() function.";
+		];
+		item [
+			a dcs:Tests;
+			label "Include tests using MooseX::XSAccessor in roles.";
+		];
+	].
