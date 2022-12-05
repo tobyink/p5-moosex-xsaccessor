@@ -261,7 +261,7 @@ usually able to detect such situations and silently switch itself off.
 =head1 BUGS
 
 Please report any bugs to
-L<http://rt.cpan.org/Dist/Display.html?Queue=MooseX-XSAccessor>.
+L<https://github.com/tobyink/p5-moosex-xsaccessor/issues>.
 
 =head1 SEE ALSO
 
